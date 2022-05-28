@@ -1,0 +1,26 @@
+name: "build"
+
+on: push
+
+jobs:
+  release:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📘 Checkout files
+        uses: actions/checkout@v2.1.1
+      - name: 🟢 Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+      - name: 📦 Install packages
+        run: yarn install
+      - name: 🥽 Run tsc
+        run: yarn typecheck
+      - name: ⚠️ Run tests
+        run: yarn test
+      - name: 🧹 Run eslint
+        run: yarn lint
+      - name: 🏠 Build files
+        run: yarn build
