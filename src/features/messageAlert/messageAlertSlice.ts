@@ -31,7 +31,9 @@ export const messageAlertSlice = createSlice({
       console.error('A network request has been rejected: ', { payload, error });
       let finalMessage = payload?.data?.detail || error.message || defaultErrorMessage;
       if (finalMessage === 'Rejected') {
-        finalMessage = 'A network request has been rejected.';
+        const statusCode = payload?.status;
+        const statusCodeText = statusCode ? ` (Status ${statusCode})` : '';
+        finalMessage = `A network request has been rejected${statusCodeText}.`;
       }
       draft.errorMessage = finalMessage;
     });
