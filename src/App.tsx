@@ -4,6 +4,7 @@ import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { BridgeDetails } from './components/BridgeDetails';
+import { LightSwitch } from './components/LightSwitch';
 
 const AppContainer = styled('div')`
   text-align: center;
@@ -24,8 +25,8 @@ function App() {
   return (
     <AppContainer>
       <AppHeader>
-        <div>Hello world</div>
         <BridgeDetails />
+        <LightSwitch lightId={2} />
       </AppHeader>
     </AppContainer>
   );

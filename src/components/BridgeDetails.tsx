@@ -9,19 +9,22 @@ import SignalWifiBadIcon from '@mui/icons-material/SignalWifiBad';
 import { useGetBridgeIP } from '@/service/api';
 
 export function BridgeDetails() {
-  const { bridgeIp, isFetching, isError, refetch } = useGetBridgeIP();
-
-  const isValid = bridgeIp && !isError;
+  const bridgeIpResult = useGetBridgeIP();
 
   const getIconEl = () => {
-    if (isFetching) return <HourglassBottomIcon color="info" />;
-    if (isValid) return <NetworkWifiIcon color="success" />;
+    if (
+      (bridgeIpResult.isSuccess && !bridgeIpResult.isFetching) ||
+      (bridgeIpResult.isSkipped && !bridgeIpResult.isError)
+    ) {
+      return <NetworkWifiIcon color="success" />;
+    }
+    if (bridgeIpResult.isFetching) return <HourglassBottomIcon sx={{ color: 'orange' }} />;
     return <SignalWifiBadIcon color="error" />;
   };
 
   return (
     <div>
-      <IconButton onClick={refetch}>{getIconEl()}</IconButton>
+      <IconButton onClick={bridgeIpResult.refetch}>{getIconEl()}</IconButton>
     </div>
   );
 }
