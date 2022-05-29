@@ -22,17 +22,7 @@ export type SuccessfulLightDetails = {
   name: string;
 };
 
-type LightDetails =
-  | SuccessfulLightDetails
-  | [
-      {
-        error: {
-          type: number;
-          address: string;
-          description: string;
-        };
-      }
-    ];
+type Lights = Record<string, SuccessfulLightDetails>;
 
 const BRIDGE_IP_LOCAL_STORAGE_KEY = 'bridgeIP';
 
@@ -71,12 +61,14 @@ const baseQueryWithBridgeIp: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQ
 
 export const api = createApi({
   baseQuery: baseQueryWithBridgeIp,
+  tagTypes: ['light'],
   endpoints: (build) => ({
     getHueItems: build.query<HueItemDetails[], void>({
       query: () => `https://discovery.meethue.com/`,
     }),
-    getLight: build.query<LightDetails, { lightId: number }>({
-      query: ({ lightId }) => `lights/${lightId}/`,
+    getLights: build.query<Lights, void>({
+      query: () => `lights/`,
+      providesTags: ['light'],
     }),
     updateLight: build.mutation<
       unknown,
@@ -90,11 +82,12 @@ export const api = createApi({
           bri: brightness,
         },
       }),
+      invalidatesTags: ['light'],
     }),
   }),
 });
 
-export const { useGetHueItemsQuery, useGetLightQuery, useUpdateLightMutation } = api;
+export const { useGetHueItemsQuery, useGetLightsQuery, useUpdateLightMutation } = api;
 
 const getBridgeIpFromHueItems = (hueItems: HueItemDetails[] | undefined): string | undefined => {
   return hueItems?.[0]?.internalipaddress;
@@ -135,4 +128,17 @@ export const useGetBridgeIP = () => {
   }, [isSkipped, clearIp, rawRefetch]);
 
   return { ...result, bridgeIp, clearIp, refetch, isSkipped };
+};
+
+export const useGetLight = (lightId: number) => {
+  return useGetLightsQuery(undefined, {
+    selectFromResult: ({ data, isLoading, isFetching, isSuccess, isError, isUninitialized }) => ({
+      light: data?.[lightId],
+      isLoading,
+      isFetching: isFetching,
+      isUninitialized,
+      isSuccess,
+      isError,
+    }),
+  });
 };

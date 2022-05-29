@@ -7,7 +7,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import { Button, ButtonGroup, Slider } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { SuccessfulLightDetails, useGetLightQuery, useUpdateLightMutation } from '@/service/api';
+import { useGetLight, useUpdateLightMutation } from '@/service/api';
 import { useDebounce } from '@/hooks/useDebounce';
 
 type LightSwitchProps = {
@@ -18,18 +18,18 @@ export function LightSwitch({ lightId }: LightSwitchProps) {
   const [isSliderTouched, setIsSliderTouched] = useState(false);
   const [brightness, setBrightness] = useState(255);
   const debouncedBrightness = useDebounce(brightness, 500);
-  const getLightResult = useGetLightQuery({ lightId });
-  const isLightResultSuccessful =
-    getLightResult.data && 'state' in getLightResult.data && getLightResult.data.state.reachable;
+  const getLightResult = useGetLight(lightId);
 
-  const lightName = isLightResultSuccessful
-    ? (getLightResult.data as SuccessfulLightDetails).name
-    : 'Unknown light';
+  const isLightReachable = getLightResult.light?.state.reachable;
+
+  const lightName = getLightResult.light?.name ?? 'Unknown light';
+
+  const receivedBrightness = getLightResult.light?.state.bri;
 
   useEffect(() => {
-    if (!getLightResult.data || !('state' in getLightResult.data)) return;
-    setBrightness(getLightResult.data.state.bri);
-  }, [getLightResult.data]);
+    if (!receivedBrightness) return;
+    setBrightness(receivedBrightness);
+  }, [receivedBrightness]);
 
   useEffect(() => {
     if (!isSliderTouched) return;
@@ -45,24 +45,33 @@ export function LightSwitch({ lightId }: LightSwitchProps) {
     setBrightness(newValue as number);
   };
 
+  const isLightOn = getLightResult.light?.state.on;
+  const isLightOff = getLightResult.light?.state.on === false;
+
   return (
     <div>
-      <div>{lightName}</div>
       <div>
-        <ButtonGroup disabled={!isLightResultSuccessful} variant="contained">
+        {lightName}
+        {!isLightReachable ? ' (unreachable)' : ''}
+      </div>
+      <div>
+        <ButtonGroup disabled={!isLightReachable} variant="outlined">
           <Button onClick={getLightResult.refetch}>
             <ReplayIcon />
           </Button>
-          <Button onClick={() => handleLight('off')}>
+          <Button
+            onClick={() => handleLight('off')}
+            variant={isLightOff ? 'contained' : 'outlined'}
+          >
             <LightbulbOutlinedIcon />
           </Button>
-          <Button onClick={() => handleLight('on')}>
+          <Button onClick={() => handleLight('on')} variant={isLightOn ? 'contained' : 'outlined'}>
             <LightbulbIcon />
           </Button>
         </ButtonGroup>
       </div>
       <Slider
-        disabled={!isLightResultSuccessful}
+        disabled={!isLightReachable}
         min={0}
         max={255}
         value={brightness}
