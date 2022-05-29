@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 import { Provider } from 'react-redux';
 import { StrictMode } from 'react';
@@ -32,6 +32,5 @@ function setUpApp() {
 describe('App test', () => {
   it('Does nothing in particular (TODO: tests)', () => {
     setUpApp();
-    screen.getByText('Hello world');
   });
 });
