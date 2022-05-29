@@ -40,3 +40,9 @@ yarn typecheck
 ```
 yarn lint
 ```
+
+### Build package
+
+```
+yarn dist
+```
