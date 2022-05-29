@@ -26,14 +26,14 @@ type Lights = Record<string, SuccessfulLightDetails>;
 
 const BRIDGE_IP_LOCAL_STORAGE_KEY = 'bridgeIP';
 
-console.log(import.meta.env);
 const BRIDGE_API_KEY = import.meta.env.VITE_BRIDGE_API_KEY;
 if (!BRIDGE_API_KEY) {
   throw new Error('Missing bridge API key. Please add it to your `.env` file and try again.');
 }
 
 const getBridgeIpFromStorage = () => {
-  return JSON.parse(window.localStorage.getItem(BRIDGE_IP_LOCAL_STORAGE_KEY) ?? '');
+  const rawItem = window.localStorage.getItem(BRIDGE_IP_LOCAL_STORAGE_KEY) ?? '""';
+  return JSON.parse(rawItem);
 };
 
 const baseQueryWithBridgeIp: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
