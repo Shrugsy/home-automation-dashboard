@@ -3,6 +3,9 @@
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { BridgeDetails } from './components/BridgeDetails';
+import { Lights } from './components/Lights';
+
 const AppContainer = styled('div')`
   text-align: center;
 `;
@@ -21,7 +24,10 @@ const AppHeader = styled('header')`
 function App() {
   return (
     <AppContainer>
-      <AppHeader>Hello world</AppHeader>
+      <AppHeader>
+        <BridgeDetails />
+        <Lights />
+      </AppHeader>
     </AppContainer>
   );
 }
