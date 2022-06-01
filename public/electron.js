@@ -17,12 +17,8 @@ function createWindow() {
   // win.loadFile("index.html");
   const url = isDev
     ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../build/index.html')}`;
-  console.log({ url });
-  console.log(`file://${path.join(__dirname, '../build/index.html')}`);
-  win.loadURL(
-    isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
-  );
+    : `file://${path.join(__dirname, '../dist/index.html')}`;
+  win.loadURL(url);
   // Open the DevTools.
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });

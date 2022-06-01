@@ -41,8 +41,9 @@ const baseQueryWithBridgeIp: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQ
   api,
   extraOptions
 ) => {
+  const url = typeof args === 'object' ? args.url : args;
   const bridgeIp = getBridgeIpFromStorage();
-  if (!bridgeIp) {
+  if (!url.startsWith('http') && !bridgeIp) {
     return {
       error: {
         status: 500,

@@ -7,7 +7,7 @@
 Running in development mode will re-compile and hot-reload on changes.
 
 ```bash
-yarn dev
+yarn dev-browser
 ```
 
 ### Run in production mode
@@ -39,4 +39,10 @@ yarn typecheck
 
 ```
 yarn lint
+```
+
+### Build package
+
+```
+yarn electron-pack
 ```
