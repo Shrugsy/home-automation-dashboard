@@ -20,8 +20,7 @@
     "test-watch": "vitest watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "electron-pack": "yarn build && electron-builder --dir",
-    "dist": "yarn build && electron-builder build"
+    "electron-pack": "yarn build && electron-builder --dir"
   },
   "build": {
     "appId": "com.electron.home-automation-dashboard",
