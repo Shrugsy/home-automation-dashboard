@@ -9,6 +9,7 @@ export function GlobalStyles({ children }: { children: ReactNode }) {
       <Global
         styles={css`
           body {
+            overflow: hidden;
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
               'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;

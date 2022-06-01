@@ -1,17 +1,29 @@
 const path = require('path');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const isDev = require('electron-is-dev');
+const Store = require('electron-store');
+const store = new Store();
 
 function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  const opts = {
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
     },
+    ...store.get('winBounds'),
+  };
+  const win = new BrowserWindow(opts);
+
+  win.on('close', () => {
+    store.set('winBounds', win.getBounds());
   });
+
+  if (!isDev) {
+    Menu.setApplicationMenu(null);
+  }
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
