@@ -20,7 +20,7 @@
     "test-watch": "vitest watch",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "pack": "yarn build && electron-builder --dir",
+    "electron-pack": "yarn build && electron-builder --dir",
     "dist": "yarn build && electron-builder build"
   },
   "build": {
