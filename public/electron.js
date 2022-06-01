@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const isDev = require('electron-is-dev');
 const Store = require('electron-store');
 const store = new Store();
@@ -20,6 +20,10 @@ function createWindow() {
   win.on('close', () => {
     store.set('winBounds', win.getBounds());
   });
+
+  if (!isDev) {
+    Menu.setApplicationMenu(null);
+  }
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
