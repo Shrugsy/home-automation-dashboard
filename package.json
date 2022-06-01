@@ -1,10 +1,12 @@
 {
   "name": "home-automation-dashboard",
+  "description": "A small dashboard for home automation interaction",
   "version": "0.0.0",
   "author": {
     "name": "Joshua Fraser",
     "url": "https://github.com/Shrugsy"
   },
+  "license": "MIT",
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
@@ -19,23 +21,23 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "pack": "yarn build && electron-builder --dir",
-    "dist": "yarn build && electron-builder"
+    "dist": "yarn build && electron-builder build"
   },
   "build": {
-    "appId": "com.electron.${productName}",
+    "appId": "com.electron.home-automation-dashboard",
     "productName": "home-automation-dashboard",
     "copyright": "Copyright © 2020 ${author}",
     "win": {
       "icon": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
     },
     "files": [
-      "build/**/*",
+      "dist/**/*",
       "node_modules/**/*",
       "public/electron.js"
     ],
     "directories": {
       "buildResources": "public",
-      "output": "dist/${productName}_${version}"
+      "output": "dist/home-automation-dashboard_${version}"
     },
     "extends": null
   },
