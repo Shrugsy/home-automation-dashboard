@@ -37,7 +37,7 @@
     ],
     "directories": {
       "buildResources": "public",
-      "output": "dist/home-automation-dashboard_${version}"
+      "output": "output/home-automation-dashboard_${version}"
     },
     "extends": null
   },
