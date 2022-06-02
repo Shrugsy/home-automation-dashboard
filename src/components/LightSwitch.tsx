@@ -6,9 +6,14 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { Button, ButtonGroup, Slider } from '@mui/material';
 import { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
 
 import { useGetLight, useUpdateLightMutation } from '@/service/api';
 import { useDebounce } from '@/hooks/useDebounce';
+
+const LightNameContainer = styled('div')`
+  margin-bottom: 4px;
+`;
 
 type LightSwitchProps = {
   lightId: number;
@@ -50,10 +55,10 @@ export function LightSwitch({ lightId }: LightSwitchProps) {
 
   return (
     <div>
-      <div>
+      <LightNameContainer>
         {lightName}
         {!isLightReachable ? ' (unreachable)' : ''}
-      </div>
+      </LightNameContainer>
       <div>
         <ButtonGroup disabled={!isLightReachable} variant="outlined">
           <Button onClick={getLightResult.refetch}>
