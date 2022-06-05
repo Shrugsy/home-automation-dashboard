@@ -141,5 +141,6 @@ export const useGetLight = (lightId: number) => {
       isSuccess,
       isError,
     }),
+    pollingInterval: 60000,
   });
 };
