@@ -13,6 +13,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#282c34',
+      symbolColor: '#74b1be',
+    },
     ...store.get('winBounds'),
   };
   const win = new BrowserWindow(opts);
