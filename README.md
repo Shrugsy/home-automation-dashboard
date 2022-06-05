@@ -2,7 +2,7 @@
 
 A minimal dashboard for home automation access.
 
-![2022-06-02 21_01_54-Window](https://user-images.githubusercontent.com/22929669/171615929-227e4561-4d1c-4b27-941c-a55a933e3490.png)
+![2022-06-05 13_29_43-Window](https://user-images.githubusercontent.com/22929669/172033796-f71ea3c8-4af2-47f6-af83-8f586b38e2d6.png)
 
 ## Usage
 
