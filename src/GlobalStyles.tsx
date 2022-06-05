@@ -15,6 +15,10 @@ export function GlobalStyles({ children }: { children: ReactNode }) {
               'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            -webkit-app-region: drag;
+            button {
+              -webkit-app-region: no-drag;
+            }
           }
 
           code {
